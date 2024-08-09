@@ -1,16 +1,11 @@
 const { Given , When} = require('@cucumber/cucumber');
-const { chromium } = require('playwright');
 require('dotenv').config();
 const LoginPage=require('../pageObjects/login.page')
 const NavigatorPage = require('../pageObjects/navigatorPage')
-const data=require("../data/navigator.json")
-const fs = require('fs');
-
 const pages = {
     login: LoginPage
 }
 const navigatorpages={
-    
     searchorder: NavigatorPage
 }
 let navigatorPageInstance;
@@ -19,13 +14,13 @@ Given(/^I am on the login page$/, async () => {
     navigatorPageInstance = new NavigatorPage(global.page);  
 });
 
-When('I login with emailid and password', async() => {
+When('I log in with a valid email and password', async() => {
     await LoginPage.login_navigator(process.env.email_id, process.env.password);
     const currentUrl = global.page.url();
     console.log(`Current page URL is: ${currentUrl}`);
 });
 
-When(`Create the new order`, async () => {
+And(`Create the new order`, async () => {
     await global.page.waitForTimeout(7000);
     await navigatorPageInstance.navigator();
     await global.page.waitForTimeout(8000);
@@ -37,8 +32,6 @@ When(`Create the new order`, async () => {
             console.log(`Console error: ${msg.text()}`);
         }
     });
-    // console.log("============================")
-    // await NavigatorPage.createOrder();
     await navigatorPageInstance.createOrder();
     await global.page.waitForTimeout(5000);
 });
@@ -51,12 +44,8 @@ When(`Click on jobs`, async () => {
     await global.page.waitForTimeout(3000);
     // await navigatorPageInstance.changeJobStatus();
 });
-
-
 When(`Select the Items in the page`, async() => {
     await global.page.waitForTimeout(3000);
     await navigatorPageInstance.selectItems();
     await global.page.waitForTimeout(3000);
-
-    
 });

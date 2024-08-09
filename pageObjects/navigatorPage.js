@@ -103,16 +103,10 @@ console.log("------------------firstroom selected---------------")
         console.log('Order Number:', orderNumber);
         data.order_no= orderNumber;
         fs.writeFile("./data/navigator.json",JSON.stringify(data));
-       
     }
     async changeJobStatus(){
         // await this.changeStatus.click();
-        // await this.statusDropDown.waitFor({ state: 'visible' });
-        // await this.statusDropDown.selectOption({ value: '3' });
-        // console.log("----------selected job status----------")
-        // await this.saveBtn.click();
     }
-
     async selectItems(){
         await global.page.waitForTimeout(5000)
         await this.itemsBtn.click();
@@ -122,14 +116,9 @@ console.log("------------------firstroom selected---------------")
         const element = await global.page.locator("(//div[@id='slickGridContainer-oeOrderLinesGrid']//div[@class='grid-canvas grid-canvas-top grid-canvas-left']//following::div)[3]");
       
         const textContent = await element.textContent()
-console.log("Item Name:==================", textContent);
-        
-      
-     
-    
+        console.log("Item Name:==================", textContent);
         data.item_name= textContent;
         fs.writeFile("./data/navigator.json",JSON.stringify(data));
-       
     }
 }
 module.exports =NavigatorPage; 
